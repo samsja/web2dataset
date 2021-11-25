@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "web2dataset"
+version = "0.1.0"
+description = ""
+authors = ["sami jaghouar <sami.jaghouar@hotmail.fr>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+nbdev = "^1.1.23"
+jupyterlab-code-formatter = "^1.4.10"
+black = "^21.8b0"
+isort = "^5.9.3"
+jupyterlab = "^3.2.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
