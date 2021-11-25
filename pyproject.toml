@@ -5,7 +5,7 @@ description = ""
 authors = ["sami jaghouar <sami.jaghouar@hotmail.fr>"]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.8"
 
 [tool.poetry.dev-dependencies]
 nbdev = "^1.1.23"
@@ -13,6 +13,7 @@ jupyterlab-code-formatter = "^1.4.10"
 black = "^21.8b0"
 isort = "^5.9.3"
 jupyterlab = "^3.2.4"
+jupyter-client = "6.1.12"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
