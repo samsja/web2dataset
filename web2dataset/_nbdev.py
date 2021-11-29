@@ -2,9 +2,15 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {}
+index = {"Cleaner": "cleaner.ipynb",
+         "Downloader": "downloader.ipynb",
+         "BasicDownloader": "downloader.ipynb",
+         "MultiThreadedDownloader": "downloader.ipynb",
+         "Searcher": "searcher.ipynb"}
 
-modules = []
+modules = ["cleaner.py",
+           "downloader.py",
+           "searcher.py"]
 
 doc_url = "https://samsja.github.io/web2dataset/"
 
