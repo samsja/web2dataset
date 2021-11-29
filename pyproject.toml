@@ -6,6 +6,7 @@ authors = ["sami jaghouar <sami.jaghouar@hotmail.fr>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+jsons = "^1.6.0"
 
 [tool.poetry.dev-dependencies]
 nbdev = "^1.1.23"

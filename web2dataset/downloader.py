@@ -4,7 +4,6 @@ __all__ = ['Downloader', 'BasicDownloader', 'MultiThreadedDownloader']
 
 # Cell
 class Downloader:
-
     def __init__(path: str):
         self.path = path
 

@@ -3,12 +3,14 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"Cleaner": "cleaner.ipynb",
+         "Document": "document.ipynb",
          "Downloader": "downloader.ipynb",
          "BasicDownloader": "downloader.ipynb",
          "MultiThreadedDownloader": "downloader.ipynb",
          "Searcher": "searcher.ipynb"}
 
 modules = ["cleaner.py",
+           "documet.py",
            "downloader.py",
            "searcher.py"]
 

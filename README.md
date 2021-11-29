@@ -1,5 +1,5 @@
 # web2dataset
-> Python library to easily create image dataset from google image and other
+
 
 
 ## Install

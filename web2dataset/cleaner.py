@@ -4,7 +4,6 @@ __all__ = ['Cleaner']
 
 # Cell
 class Cleaner:
-
     def __init__(self, path: str):
         self.path = path
 

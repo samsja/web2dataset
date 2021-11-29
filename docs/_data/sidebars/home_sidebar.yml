@@ -10,8 +10,17 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: main
-      url: core.html
+      title: CLean
+      url: cleaner.html
+    - output: web,pdf
+      title: Document
+      url: document.html
+    - output: web,pdf
+      title: Downloader
+      url: downloader.html
+    - output: web,pdf
+      title: Searcher
+      url: searcher.html
     output: web
     title: web2dataset
   output: web
