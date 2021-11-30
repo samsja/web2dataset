@@ -40,6 +40,13 @@ nb_path: "nbs/searcher.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -47,7 +54,7 @@ nb_path: "nbs/searcher.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Searcher" class="doc_header"><code>class</code> <code>Searcher</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/searcher.py#L6" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Searcher</code>(<strong><code>query</code></strong>:<code>str</code>)</p>
+<h2 id="Searcher" class="doc_header"><code>class</code> <code>Searcher</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/searcher.py#L14" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Searcher</code>(<strong><code>query</code></strong>:<code>str</code>, <strong><code>n_item</code></strong>:<code>int</code>)</p>
 </blockquote>
 
 </div>
@@ -68,12 +75,29 @@ nb_path: "nbs/searcher.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Searcher</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">n_item</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="n">query</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_uri</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_item</span> <span class="o">=</span> <span class="n">n_item</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">documents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
+    
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        path: folder path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">documents</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+                
+                <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">jsons</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">doc</span><span class="p">),</span><span class="n">fp</span><span class="p">)</span>
+        
 </pre></div>
 
     </div>
@@ -99,7 +123,7 @@ nb_path: "nbs/searcher.ipynb"
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">BasicSearcher</span><span class="p">(</span><span class="n">Searcher</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_uri</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;https://www.google.fr&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">documents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Document</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s2">&quot;https://www.google.fr&quot;</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -123,24 +147,9 @@ nb_path: "nbs/searcher.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">searcher</span> <span class="o">=</span> <span class="n">BasicSearcher</span><span class="p">(</span><span class="s2">&quot;wallpaper&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">searcher</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">searcher</span> <span class="o">=</span> <span class="n">BasicSearcher</span><span class="p">(</span><span class="s2">&quot;wallpaper&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">searcher</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">searcher</span><span class="o">.</span><span class="n">documents</span><span class="p">)</span> <span class="o">==</span> <span class="n">searcher</span><span class="o">.</span><span class="n">n_item</span>
 </pre></div>
 
     </div>
@@ -152,7 +161,8 @@ nb_path: "nbs/searcher.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="tests">tests<a class="anchor-link" href="#tests"> </a></h2>
+<p>we can then save the documents by giving a folder path to the method save_docs_to_file</p>
+
 </div>
 </div>
 </div>
@@ -163,9 +173,198 @@ nb_path: "nbs/searcher.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">searcher</span> <span class="o">=</span> <span class="n">BasicSearcher</span><span class="p">(</span><span class="s2">&quot;wallpaper&quot;</span><span class="p">)</span>
-<span class="n">searcher</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
-<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">searcher</span><span class="o">.</span><span class="n">data_uri</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">searcher</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;/tmp/my_search&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Google-image-searcher">Google image searcher<a class="anchor-link" href="#Google-image-searcher"> </a></h1><blockquote><p>The Google searcher is the first and main searcher</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>first lets design a simple context manager to open and close the web driver automatically</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">_get_driver</span><span class="p">()</span> <span class="k">as</span> <span class="n">driver</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then the google image searcher</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="GoogleImageSearcher" class="doc_header"><code>class</code> <code>GoogleImageSearcher</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/searcher.py#L64" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>GoogleImageSearcher</code>(<strong><code>query</code></strong>:<code>str</code>, <strong><code>n_item</code></strong>:<code>int</code>) :: <a href="/web2dataset/searcher.html#Searcher"><code>Searcher</code></a></p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ggl_searcher</span> <span class="o">=</span> <span class="n">GoogleImageSearcher</span><span class="p">(</span>
+    <span class="s2">&quot;https://www.google.fr/search?q=bike&amp;hl=fr&amp;tbm=isch&amp;sxsrf=AOaemvJcg1mx6w-ERS3fiG7QS7DORk9IOw%3A1638274784048&amp;source=hp&amp;biw=1920&amp;bih=971&amp;ei=4BamYaFU_p2Muw_43YuoCg&amp;iflsig=ALs-wAMAAAAAYaYk8KzfwTYwqaWeGpaKIQxMxICkwyh2&amp;ved=0ahUKEwihxK6UicD0AhX-DmMBHfjuAqUQ4dUDCAU&amp;uact=5&amp;oq=bike&amp;gs_lcp=CgNpbWcQAzIHCCMQ7wMQJzIHCCMQ7wMQJzIICAAQgAQQsQMyCAgAEIAEELEDMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEOgoIIxDvAxDqAhAnOggIABCxAxCDAToLCAAQgAQQsQMQgwFQvxhYwSVgriZoBXAAeACAAUeIAfADkgEBOJgBAKABAaoBC2d3cy13aXotaW1nsAEK&amp;sclient=img&quot;</span><span class="p">,</span>
+    <span class="mi">100</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ggl_searcher</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ggl_searcher</span><span class="o">.</span><span class="n">documents</span><span class="p">)</span> <span class="o">==</span> <span class="n">ggl_searcher</span><span class="o">.</span><span class="n">n_item</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span><span class="o">.</span><span class="n">image_url</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">ggl_searcher</span><span class="o">.</span><span class="n">documents</span><span class="p">]</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">url</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(100, 42)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/tmp/.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">jsons</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">google_searcher</span><span class="o">.</span><span class="n">documents</span><span class="p">)</span>
 </pre></div>
 
     </div>

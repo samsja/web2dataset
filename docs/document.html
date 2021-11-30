@@ -47,7 +47,7 @@ nb_path: "nbs/document.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Document" class="doc_header"><code>class</code> <code>Document</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/documet.py#L10" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Document</code>(<strong><code>origin</code></strong>:<code>str</code>, <strong><code>timezone</code></strong>:<code>ZoneInfo</code>=<em><code>zoneinfo.ZoneInfo(key='Europe/Paris')</code></em>)</p>
+<h2 id="Document" class="doc_header"><code>class</code> <code>Document</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/document.py#L14" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Document</code>(<strong><code>origin</code></strong>:<code>str</code>, <strong><code>timezone</code></strong>:<code>ZoneInfo</code>=<em><code>zoneinfo.ZoneInfo(key='Europe/Paris')</code></em>, <strong><code>image_url</code></strong>:<code>Optional</code>[<code>str</code>]=<em><code>None</code></em>)</p>
 </blockquote>
 
 </div>
@@ -68,9 +68,19 @@ nb_path: "nbs/document.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Document</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">origin</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timezone</span><span class="p">:</span> <span class="n">ZoneInfo</span> <span class="o">=</span> <span class="n">ZoneInfo</span><span class="p">(</span><span class="s2">&quot;Europe/Paris&quot;</span><span class="p">)):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">origin</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">timezone</span><span class="p">:</span> <span class="n">ZoneInfo</span> <span class="o">=</span> <span class="n">ZoneInfo</span><span class="p">(</span><span class="s2">&quot;Europe/Paris&quot;</span><span class="p">),</span>
+        <span class="n">image_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">origin</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_url</span> <span class="o">=</span> <span class="n">image_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid1</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">jsons</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -94,7 +104,7 @@ nb_path: "nbs/document.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">Document</span><span class="p">(</span><span class="n">origin</span> <span class="o">=</span> <span class="s2">&quot;https://google.fr&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">doc</span> <span class="o">=</span> <span class="n">Document</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s2">&quot;https://google.fr&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -111,24 +121,7 @@ nb_path: "nbs/document.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">jsons</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jsons</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -140,12 +133,10 @@ nb_path: "nbs/document.ipynb"
 
 <div class="output_area">
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;{&#34;date&#34;: &#34;2021-11-29T19:08:54.593405+01:00&#34;, &#34;origin&#34;: &#34;https://google.fr&#34;}&#39;</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#34;date&#34;: &#34;2021-11-30T13:43:11.917024+01:00&#34;, &#34;image_url&#34;: null, &#34;origin&#34;: &#34;https://google.fr&#34;, &#34;uuid&#34;: &#34;14231886-51db-11ec-ae11-645d865124e9&#34;}
+</pre>
 </div>
-
 </div>
 
 </div>

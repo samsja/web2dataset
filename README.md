@@ -10,7 +10,20 @@ pip install git+https://github.com/samsja/web2dataset.git@master
 
 ## How to use
 
-Fill me in please! Don't forget code examples:
+let's perform a simple research on google image to search for 5 bike images
+
+```python
+from web2dataset.searcher import GoogleImageSearcher
+import jsons
+import json
+
+google_searcher = GoogleImageSearcher(
+    "https://www.google.fr/search?q=bike&hl=fr&tbm=isch&sxsrf=AOaemvJcg1mx6w-ERS3fiG7QS7DORk9IOw%3A1638274784048&source=hp&biw=1920&bih=971&ei=4BamYaFU_p2Muw_43YuoCg&iflsig=ALs-wAMAAAAAYaYk8KzfwTYwqaWeGpaKIQxMxICkwyh2&ved=0ahUKEwihxK6UicD0AhX-DmMBHfjuAqUQ4dUDCAU&uact=5&oq=bike&gs_lcp=CgNpbWcQAzIHCCMQ7wMQJzIHCCMQ7wMQJzIICAAQgAQQsQMyCAgAEIAEELEDMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEOgoIIxDvAxDqAhAnOggIABCxAxCDAToLCAAQgAQQsQMQgwFQvxhYwSVgriZoBXAAeACAAUeIAfADkgEBOJgBAKABAaoBC2d3cy13aXotaW1nsAEK&sclient=img",
+    n_item=5,
+)
+google_searcher.search()
+google_searcher.save("/tmp/my_search")
+```
 
 ## How to contribute
 

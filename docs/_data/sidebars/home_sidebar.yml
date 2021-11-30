@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: CLean
+      title: Cleaner
       url: cleaner.html
     - output: web,pdf
       title: Document

@@ -7,10 +7,11 @@ index = {"Cleaner": "cleaner.ipynb",
          "Downloader": "downloader.ipynb",
          "BasicDownloader": "downloader.ipynb",
          "MultiThreadedDownloader": "downloader.ipynb",
-         "Searcher": "searcher.ipynb"}
+         "Searcher": "searcher.ipynb",
+         "GoogleImageSearcher": "searcher.ipynb"}
 
 modules = ["cleaner.py",
-           "documet.py",
+           "document.py",
            "downloader.py",
            "searcher.py"]
 

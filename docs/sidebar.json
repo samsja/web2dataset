@@ -1,7 +1,7 @@
 {
   "web2dataset": {
     "Overview": "/",
-    "CLean": "cleaner.html",
+    "Cleaner": "cleaner.html",
     "Document": "document.html",
     "Downloader": "downloader.html",
     "Searcher": "searcher.html"
