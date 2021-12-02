@@ -4,6 +4,7 @@ __all__ = ['MetaDataCleanerError', 'check_no_docs_creation', 'MetaDataCleaner', 
            'ImageCleaner']
 
 # Cell
+from abc import ABC, abstractmethod
 from functools import wraps
 from typing import List
 
@@ -27,7 +28,8 @@ def check_no_docs_creation(f):
     return wrapper
 
 # Cell
-class MetaDataCleaner:
+class MetaDataCleaner(ABC):
+    @abstractmethod
     @check_no_docs_creation
     def clean(self, docs: List[Document]) -> List[Document]:
         pass

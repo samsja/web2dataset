@@ -5,6 +5,7 @@ __all__ = ['Searcher', 'SearchError', 'GoogleImageSearchError', 'GoogleImageSear
 # Cell
 import json
 import os
+from abc import ABC, abstractmethod
 from typing import List, Optional
 
 import jsons
@@ -13,7 +14,7 @@ from .cleaner import IdentityCleaner, MetaDataCleaner
 from .document import Document
 
 # Cell
-class Searcher:
+class Searcher(ABC):
     def __init__(
         self, query: str, n_item: int, cleaners: Optional[List[MetaDataCleaner]] = None
     ):
@@ -22,9 +23,14 @@ class Searcher:
         self.documents: List[Document] = []
         self.cleaners = cleaners
 
+    @abstractmethod
+    def search(self):
+        pass
+
     def clean(self):
-        for cleaner in self.cleaners:
-            self.documents = cleaner.clean(self.documents)
+        if self.cleaners is not None:
+            for cleaner in self.cleaners:
+                self.documents = cleaner.clean(self.documents)
 
     def save(self, path: str):
         """
@@ -41,6 +47,7 @@ class Searcher:
                 json.dump(jsons.dump(doc), fp)
 
 # Cell
+
 
 class SearchError(ValueError):
     pass
@@ -79,8 +86,10 @@ class GoogleImageSearcher(Searcher):
     query: str, it contains the query that is send to google search
     """
 
-    def __init__(self, query: str, n_item: int, cleaners: Optional[List[MetaDataCleaner]] ):
-        super().__init__(query, n_item)
+    def __init__(
+        self, query: str, n_item: int, cleaners: Optional[List[MetaDataCleaner]] = None
+    ):
+        super().__init__(query, n_item,cleaners)
 
         self.google_image_url = self._create_url_from_query(self.query)
 

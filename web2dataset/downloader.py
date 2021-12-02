@@ -3,10 +3,14 @@
 __all__ = ['Downloader', 'BasicDownloader', 'MultiThreadedDownloader']
 
 # Cell
-class Downloader:
+from abc import ABC, abstractmethod
+
+# Cell
+class Downloader(ABC):
     def __init__(path: str):
         self.path = path
 
+    @abstractmethod
     def download(self, data_uri: str):
         pass
 
