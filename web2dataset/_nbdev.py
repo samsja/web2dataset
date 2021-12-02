@@ -2,7 +2,8 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"Cleaner": "cleaner.ipynb",
+index = {"MetaDataCleaner": "cleaner.ipynb",
+         "ImageCleaner": "cleaner.ipynb",
          "Document": "document.ipynb",
          "Downloader": "downloader.ipynb",
          "BasicDownloader": "downloader.ipynb",

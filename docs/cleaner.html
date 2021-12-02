@@ -33,6 +33,19 @@ nb_path: "nbs/cleaner.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="MetaDataCleaner">MetaDataCleaner<a class="anchor-link" href="#MetaDataCleaner"> </a></h1>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -40,7 +53,7 @@ nb_path: "nbs/cleaner.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Cleaner" class="doc_header"><code>class</code> <code>Cleaner</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/cleaner.py#L6" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Cleaner</code>(<strong><code>path</code></strong>:<code>str</code>)</p>
+<h2 id="MetaDataCleaner" class="doc_header"><code>class</code> <code>MetaDataCleaner</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/cleaner.py#L11" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MetaDataCleaner</code>()</p>
 </blockquote>
 
 </div>
@@ -56,21 +69,198 @@ nb_path: "nbs/cleaner.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Duplicate-cleaner">Duplicate cleaner<a class="anchor-link" href="#Duplicate-cleaner"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This MetaDataDuplicateCleaner delete any duplicate, i.e document with the same src image to avoid downloading twice the same image.
+It is different from the ImageDuplicateCleaner, will delete two identical image after the donwload, this images could come from two different sources be still be the same</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Cleaner</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
-
-    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">MetaDataDuplicateCleaner</span><span class="p">(</span><span class="n">MetaDataCleaner</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+        <span class="n">url_doc</span> <span class="o">=</span> <span class="p">{</span> <span class="n">doc</span><span class="o">.</span><span class="n">image_url</span><span class="p">:</span><span class="n">doc</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">}</span> <span class="c1"># first we create a dict with image url as key because we want to keep only one doc per image_rul</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">url_doc</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        
 </pre></div>
 
     </div>
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docs</span> <span class="o">=</span> <span class="p">[</span> <span class="n">Document</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">image_url</span><span class="o">=</span><span class="s2">&quot;https://image/bike&quot;</span><span class="p">),</span><span class="n">Document</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">image_url</span><span class="o">=</span><span class="s2">&quot;https://image/bike&quot;</span><span class="p">),</span><span class="n">Document</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">image_url</span><span class="o">=</span><span class="s2">&quot;https://image/bmx&quot;</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span> <span class="n">doc</span><span class="o">.</span><span class="n">image_url</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">]</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">url</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(3, 2)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>as we can see in this list of doc there are 3 url but only two of them are different. Let's fix it</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cleaner</span><span class="o">=</span> <span class="n">MetaDataDuplicateCleaner</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docs2</span> <span class="o">=</span> <span class="n">cleaner</span><span class="o">.</span><span class="n">clean</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+<span class="n">url</span> <span class="o">=</span> <span class="p">[</span> <span class="n">doc</span><span class="o">.</span><span class="n">image_url</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs2</span><span class="p">]</span>
+
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>we must verify that the cleaner does not create more docs</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="ImageCleaner">ImageCleaner<a class="anchor-link" href="#ImageCleaner"> </a></h1>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="ImageCleaner" class="doc_header"><code>class</code> <code>ImageCleaner</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/cleaner.py#L17" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ImageCleaner</code>(<strong><code>path</code></strong>:<code>str</code>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
