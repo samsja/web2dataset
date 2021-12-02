@@ -53,7 +53,84 @@ nb_path: "nbs/cleaner.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="MetaDataCleaner" class="doc_header"><code>class</code> <code>MetaDataCleaner</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/cleaner.py#L11" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MetaDataCleaner</code>()</p>
+<h2 id="MetaDataCleanerError" class="doc_header"><code>class</code> <code>MetaDataCleanerError</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/cleaner.py#L12" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MetaDataCleanerError</code>() :: <code>ValueError</code></p>
+</blockquote>
+<p>Inappropriate argument value (of correct type).</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>a cleaner should delete docs not create them, so we verify than we did not create new docs with this wrapper</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="check_no_docs_creation" class="doc_header"><code>check_no_docs_creation</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/cleaner.py#L16" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>check_no_docs_creation</code>(<strong><code>f</code></strong>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is the abstract class for the meta data cleaner. It only operate on documents not images</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="MetaDataCleaner" class="doc_header"><code>class</code> <code>MetaDataCleaner</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/cleaner.py#L26" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MetaDataCleaner</code>()</p>
 </blockquote>
 
 </div>
@@ -96,10 +173,12 @@ It is different from the ImageDuplicateCleaner, will delete two identical image 
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">MetaDataDuplicateCleaner</span><span class="p">(</span><span class="n">MetaDataCleaner</span><span class="p">):</span>
     
-    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
-        <span class="n">url_doc</span> <span class="o">=</span> <span class="p">{</span> <span class="n">doc</span><span class="o">.</span><span class="n">image_url</span><span class="p">:</span><span class="n">doc</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">}</span> <span class="c1"># first we create a dict with image url as key because we want to keep only one doc per image_rul</span>
+    <span class="nd">@check_no_docs_creation</span>
+    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+        <span class="n">url_doc</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">doc</span><span class="o">.</span><span class="n">image_url</span><span class="p">:</span> <span class="n">doc</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span>
+        <span class="p">}</span>  <span class="c1"># first we create a dict with image url as key because we want to keep only one doc per image_rul</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">url_doc</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-        
 </pre></div>
 
     </div>
@@ -116,7 +195,11 @@ It is different from the ImageDuplicateCleaner, will delete two identical image 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docs</span> <span class="o">=</span> <span class="p">[</span> <span class="n">Document</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">image_url</span><span class="o">=</span><span class="s2">&quot;https://image/bike&quot;</span><span class="p">),</span><span class="n">Document</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">image_url</span><span class="o">=</span><span class="s2">&quot;https://image/bike&quot;</span><span class="p">),</span><span class="n">Document</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">image_url</span><span class="o">=</span><span class="s2">&quot;https://image/bmx&quot;</span><span class="p">)]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">docs</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Document</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">image_url</span><span class="o">=</span><span class="s2">&quot;https://image/bike&quot;</span><span class="p">),</span>
+    <span class="n">Document</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">image_url</span><span class="o">=</span><span class="s2">&quot;https://image/bike&quot;</span><span class="p">),</span>
+    <span class="n">Document</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">image_url</span><span class="o">=</span><span class="s2">&quot;https://image/bmx&quot;</span><span class="p">),</span>
+<span class="p">]</span>
 </pre></div>
 
     </div>
@@ -133,8 +216,8 @@ It is different from the ImageDuplicateCleaner, will delete two identical image 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span> <span class="n">doc</span><span class="o">.</span><span class="n">image_url</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">]</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">url</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span><span class="o">.</span><span class="n">image_url</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">]</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">url</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -174,7 +257,7 @@ It is different from the ImageDuplicateCleaner, will delete two identical image 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cleaner</span><span class="o">=</span> <span class="n">MetaDataDuplicateCleaner</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cleaner</span> <span class="o">=</span> <span class="n">MetaDataDuplicateCleaner</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -192,33 +275,9 @@ It is different from the ImageDuplicateCleaner, will delete two identical image 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">docs2</span> <span class="o">=</span> <span class="n">cleaner</span><span class="o">.</span><span class="n">clean</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
-<span class="n">url</span> <span class="o">=</span> <span class="p">[</span> <span class="n">doc</span><span class="o">.</span><span class="n">image_url</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs2</span><span class="p">]</span>
+<span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span><span class="o">.</span><span class="n">image_url</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs2</span><span class="p">]</span>
 
 <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>we must verify that the cleaner does not create more docs</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -245,7 +304,7 @@ It is different from the ImageDuplicateCleaner, will delete two identical image 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ImageCleaner" class="doc_header"><code>class</code> <code>ImageCleaner</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/cleaner.py#L17" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ImageCleaner</code>(<strong><code>path</code></strong>:<code>str</code>)</p>
+<h2 id="ImageCleaner" class="doc_header"><code>class</code> <code>ImageCleaner</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/cleaner.py#L32" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ImageCleaner</code>(<strong><code>path</code></strong>:<code>str</code>)</p>
 </blockquote>
 
 </div>
