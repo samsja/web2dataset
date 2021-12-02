@@ -31,6 +31,14 @@ nb_path: "nbs/index.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>web2dataset is a modulable library built to easily create image dataset from google image and other.
+You can find the docs <a href="https://samsja.github.io/web2dataset/">here</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Install">Install<a class="anchor-link" href="#Install"> </a></h2>
 </div>
 </div>
@@ -63,15 +71,22 @@ nb_path: "nbs/index.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">web2dataset.searcher</span> <span class="kn">import</span> <span class="n">GoogleImageSearcher</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+
 <span class="kn">import</span> <span class="nn">jsons</span>
-<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">from</span> <span class="nn">web2dataset.cleaner</span> <span class="kn">import</span> <span class="n">DuplicateCleaner</span>
+<span class="kn">from</span> <span class="nn">web2dataset.searcher</span> <span class="kn">import</span> <span class="n">GoogleImageSearcher</span>
+
 
 <span class="n">google_searcher</span> <span class="o">=</span> <span class="n">GoogleImageSearcher</span><span class="p">(</span>
     <span class="s2">&quot;bike race&quot;</span><span class="p">,</span>
     <span class="n">n_item</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">cleaners</span> <span class="o">=</span> <span class="p">[</span><span class="n">DuplicateCleaner</span><span class="p">()]</span>
 <span class="p">)</span>
 <span class="n">google_searcher</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
+<span class="n">google_searcher</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
+
 <span class="n">google_searcher</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;/tmp/my_search&quot;</span><span class="p">)</span>
 </pre></div>
 

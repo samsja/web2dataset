@@ -2,26 +2,38 @@
 
 
 
+
+web2dataset is a modulable library built to easily create image dataset from google image and other.
+You can find the docs [here](https://samsja.github.io/web2dataset/)
+
 ## Install
 
 ```shell
 pip install git+https://github.com/samsja/web2dataset.git@master
 ```
 
+
 ## How to use
 
 let's perform a simple research on google image to search for 5 bike images
 
 ```python
-from web2dataset.searcher import GoogleImageSearcher
-import jsons
 import json
+
+import jsons
+
+from web2dataset.cleaner import DuplicateCleaner
+from web2dataset.searcher import GoogleImageSearcher
+
 
 google_searcher = GoogleImageSearcher(
     "bike race",
     n_item=5,
+    cleaners = [DuplicateCleaner()]
 )
 google_searcher.search()
+google_searcher.clean()
+
 google_searcher.save("/tmp/my_search")
 ```
 
