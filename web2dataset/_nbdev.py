@@ -8,6 +8,8 @@ index = {"Cleaner": "cleaner.ipynb",
          "BasicDownloader": "downloader.ipynb",
          "MultiThreadedDownloader": "downloader.ipynb",
          "Searcher": "searcher.ipynb",
+         "SearchError": "searcher.ipynb",
+         "GoogleImageSearchError": "searcher.ipynb",
          "GoogleImageSearcher": "searcher.ipynb"}
 
 modules = ["cleaner.py",
