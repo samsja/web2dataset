@@ -11,6 +11,7 @@ selenium = "^4.1.0"
 uuid = "^1.30"
 
 [tool.poetry.dev-dependencies]
+Pillow = "^8.4.0"
 nbdev = "^1.1.23"
 jupyterlab-code-formatter = "^1.4.10"
 black = "^21.8b0"

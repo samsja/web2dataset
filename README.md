@@ -2,7 +2,6 @@
 
 
 
-
 web2dataset is a modulable library built to easily create image dataset from google image and other.
 You can find the docs [here](https://samsja.github.io/web2dataset/)
 
@@ -11,7 +10,6 @@ You can find the docs [here](https://samsja.github.io/web2dataset/)
 ```shell
 pip install git+https://github.com/samsja/web2dataset.git@master
 ```
-
 
 ## How to use
 
@@ -23,19 +21,51 @@ import json
 import jsons
 
 from web2dataset.cleaner import DuplicateCleaner
+from web2dataset.downloader import BasicDownloader
 from web2dataset.searcher import GoogleImageSearcher
 
-
 google_searcher = GoogleImageSearcher(
-    "bike race",
-    n_item=5,
-    cleaners = [DuplicateCleaner()]
+    "bike race", n_item=5, cleaners=[DuplicateCleaner()]
 )
 google_searcher.search()
 google_searcher.clean()
-
 google_searcher.save("/tmp/my_search")
+
+donwloader = BasicDownloader("/tmp/my_search")
+donwloader.download()
 ```
+
+```python
+len(google_searcher.documents),len(donwloader.documents)
+```
+
+
+
+
+    (5, 5)
+
+
+
+```python
+!tree /tmp/my_search
+```
+
+    [01;34m/tmp/my_search[00m
+    ├── [01;34mimages[00m
+    │   ├── b63bc05c-5378-11ec-8284-645d865124e9
+    │   ├── b63d6fb0-5378-11ec-8284-645d865124e9
+    │   ├── b63ec2d4-5378-11ec-8284-645d865124e9
+    │   ├── b6400d24-5378-11ec-8284-645d865124e9
+    │   └── b6423dec-5378-11ec-8284-645d865124e9
+    └── [01;34mmetadata[00m
+        ├── b63bc05c-5378-11ec-8284-645d865124e9.json
+        ├── b63d6fb0-5378-11ec-8284-645d865124e9.json
+        ├── b63ec2d4-5378-11ec-8284-645d865124e9.json
+        ├── b6400d24-5378-11ec-8284-645d865124e9.json
+        └── b6423dec-5378-11ec-8284-645d865124e9.json
+    
+    2 directories, 10 files
+
 
 ## How to contribute
 
@@ -70,3 +100,7 @@ finaly built the py files with nbdev and the docs
 > ```nbdev_build_docs```
 
 you are goot to go and submit your PR :)
+
+# TODO (not exhaustive)
+
+- [ ] use proper logging
