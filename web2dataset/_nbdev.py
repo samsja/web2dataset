@@ -5,6 +5,8 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 index = {"MetaDataCleanerError": "cleaner.ipynb",
          "check_no_docs_creation": "cleaner.ipynb",
          "MetaDataCleaner": "cleaner.ipynb",
+         "IdentityCleaner": "cleaner.ipynb",
+         "DuplicateCleaner": "cleaner.ipynb",
          "ImageCleaner": "cleaner.ipynb",
          "Document": "document.ipynb",
          "Downloader": "downloader.ipynb",
