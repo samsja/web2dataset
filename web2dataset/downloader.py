@@ -5,7 +5,6 @@ __all__ = ['Downloader', 'DonwloaderError', 'PathError', 'BasicDownloader', 'Mul
 # Cell
 import json
 import os
-import shutil
 import urllib
 from abc import ABC, abstractmethod
 from typing import List
@@ -14,12 +13,13 @@ import jsons
 from PIL import Image
 
 from .document import Document
+from .utils_data import get_metadata_path,load_docs
 
 # Cell
 class Downloader(ABC):
     def __init__(self, path: str):
         self.path = path
-        self.documents = self._init_docs(self.path)
+        self.documents = load_docs(self.path)
         self._init_download()
 
     def _init_download(self):
@@ -28,24 +28,6 @@ class Downloader(ABC):
         if not os.path.isdir(self.images_path):
             os.mkdir(self.images_path)
 
-    def _file_to_docs(self, path_to_file) -> Document:
-        with open(path_to_file) as json_file:
-            data = json.load(json_file)
-
-        return jsons.load(data, Document)
-
-    def _init_docs(self, path: str) -> List[Document]:
-
-        self.metadata_path = f"{path}/metadata"
-        if not os.path.isdir(self.metadata_path):
-            raise PathError(f"not metadata subfolder in {path}")
-
-        file_docs = os.listdir(self.metadata_path)
-
-        return [
-            self._file_to_docs(f"{self.metadata_path}/{file}") for file in file_docs
-        ]
-
     @abstractmethod
     def download(self):
         pass
@@ -53,6 +35,7 @@ class Downloader(ABC):
 # Cell
 class DonwloaderError(ValueError):
     pass
+
 
 class PathError(DonwloaderError):
     pass
@@ -81,7 +64,7 @@ class BasicDownloader(Downloader):
             with open(f"{path_to_file}", "wb") as fp:
                 fp.write(data.read())
 
-        except urllib.error  as e:
+        except urllib.error as e:
             print(f"unable to donwload {path_to_file}, following error {e}")
 
     def _move_image_from_json(self, doc: Document):
@@ -90,7 +73,7 @@ class BasicDownloader(Downloader):
             with open(self._path_to_file(doc), "wb") as fp:
                 data = urllib.request.urlopen(doc.image_url)
                 fp.write(data.file.read())
-        except urllib.error  as e:
+        except urllib.error as e:
             print(e)
 
         doc.image_url = None

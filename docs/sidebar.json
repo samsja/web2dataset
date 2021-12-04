@@ -4,6 +4,7 @@
     "Cleaner": "cleaner.html",
     "Document": "document.html",
     "Downloader": "downloader.html",
-    "Searcher": "searcher.html"
+    "Searcher": "searcher.html",
+    "utils/data": "utils_data.html"
   }
 }

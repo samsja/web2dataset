@@ -12,10 +12,9 @@ import jsons
 
 from .cleaner import IdentityCleaner, MetaDataCleaner
 from .document import Document
+from .utils_data import get_metadata_path
 
 # Cell
-
-#TODO : not use chdir
 class Searcher(ABC):
     def __init__(
         self, query: str, n_item: int, cleaners: Optional[List[MetaDataCleaner]] = None
@@ -41,14 +40,16 @@ class Searcher(ABC):
 
         if not os.path.isdir(path):
             os.mkdir(path)
-        os.chdir(path)
 
-        if not os.path.isdir("metadata"):
-            os.mkdir("metadata")
-        os.chdir("metadata")
+        # os.chdir(path)
+
+        metadata_path = get_metadata_path(path)
+
+        if not os.path.isdir(metadata_path):
+            os.mkdir(metadata_path)
 
         for doc in self.documents:
-            with open(f"{doc.uuid}.json", "w") as fp:
+            with open(f"{metadata_path}/{doc.uuid}.json", "w") as fp:
                 json.dump(jsons.dump(doc), fp)
 
 # Cell

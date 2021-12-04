@@ -18,12 +18,16 @@ index = {"MetaDataCleanerError": "cleaner.ipynb",
          "BasicSearcher": "searcher.ipynb",
          "SearchError": "searcher.ipynb",
          "GoogleImageSearchError": "searcher.ipynb",
-         "GoogleImageSearcher": "searcher.ipynb"}
+         "GoogleImageSearcher": "searcher.ipynb",
+         "file_to_doc": "utils_data.ipynb",
+         "get_metadata_path": "utils_data.ipynb",
+         "load_docs": "utils_data.ipynb"}
 
 modules = ["cleaner.py",
            "document.py",
            "downloader.py",
-           "searcher.py"]
+           "searcher.py",
+           "utils_data.py"]
 
 doc_url = "https://samsja.github.io/web2dataset/"
 

@@ -35,16 +35,7 @@ donwloader = BasicDownloader("/tmp/my_search")
 donwloader.download()
 ```
 
-```python
-len(google_searcher.documents),len(donwloader.documents)
-```
-
-
-
-
-    (5, 5)
-
-
+and here you are with two folder containing the images and the metadata
 
 ```python
 !tree /tmp/my_search
@@ -52,19 +43,29 @@ len(google_searcher.documents),len(donwloader.documents)
 
     [01;34m/tmp/my_search[00m
     ├── [01;34mimages[00m
-    │   ├── b63bc05c-5378-11ec-8284-645d865124e9
-    │   ├── b63d6fb0-5378-11ec-8284-645d865124e9
-    │   ├── b63ec2d4-5378-11ec-8284-645d865124e9
-    │   ├── b6400d24-5378-11ec-8284-645d865124e9
-    │   └── b6423dec-5378-11ec-8284-645d865124e9
+    │   ├── 41a07628-54f6-11ec-b278-645d865124e9
+    │   ├── 41a0795c-54f6-11ec-b278-645d865124e9
+    │   ├── 41a07b3c-54f6-11ec-b278-645d865124e9
+    │   ├── 41a07cc2-54f6-11ec-b278-645d865124e9
+    │   ├── 41a07e3e-54f6-11ec-b278-645d865124e9
+    │   ├── 97cce43c-54f6-11ec-b2e3-645d865124e9
+    │   ├── 97d25fa2-54f6-11ec-b2e3-645d865124e9
+    │   ├── 97dc6d6c-54f6-11ec-b2e3-645d865124e9
+    │   ├── 97df7d54-54f6-11ec-b2e3-645d865124e9
+    │   └── 97e2be2e-54f6-11ec-b2e3-645d865124e9
     └── [01;34mmetadata[00m
-        ├── b63bc05c-5378-11ec-8284-645d865124e9.json
-        ├── b63d6fb0-5378-11ec-8284-645d865124e9.json
-        ├── b63ec2d4-5378-11ec-8284-645d865124e9.json
-        ├── b6400d24-5378-11ec-8284-645d865124e9.json
-        └── b6423dec-5378-11ec-8284-645d865124e9.json
+        ├── 41a07628-54f6-11ec-b278-645d865124e9.json
+        ├── 41a0795c-54f6-11ec-b278-645d865124e9.json
+        ├── 41a07b3c-54f6-11ec-b278-645d865124e9.json
+        ├── 41a07cc2-54f6-11ec-b278-645d865124e9.json
+        ├── 41a07e3e-54f6-11ec-b278-645d865124e9.json
+        ├── 97cce43c-54f6-11ec-b2e3-645d865124e9.json
+        ├── 97d25fa2-54f6-11ec-b2e3-645d865124e9.json
+        ├── 97dc6d6c-54f6-11ec-b2e3-645d865124e9.json
+        ├── 97df7d54-54f6-11ec-b2e3-645d865124e9.json
+        └── 97e2be2e-54f6-11ec-b2e3-645d865124e9.json
     
-    2 directories, 10 files
+    2 directories, 20 files
 
 
 ## How to contribute

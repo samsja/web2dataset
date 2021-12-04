@@ -21,6 +21,9 @@ entries:
     - output: web,pdf
       title: Searcher
       url: searcher.html
+    - output: web,pdf
+      title: utils/data
+      url: utils_data.html
     output: web
     title: web2dataset
   output: web
