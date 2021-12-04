@@ -2,8 +2,20 @@
 
 
 
-web2dataset is a modulable library built to easily create image dataset from google image and other.
+Web2dataset is a modulable library built to easily create image dataset from google image and other.
 You can find the docs [here](https://samsja.github.io/web2dataset/)
+
+Web2datast it's:
+
+* Easily create dataset from the web to train your own models for you own task
+* Clean them with the SOTA etich techniques
+* Modulable library that will allow sharing of cleaner and searcher
+* working in pair with Hugging face datasets, fasti ai, pytorch dataset and others 
+
+The core value of Web2dataset are:
+ * Ethic
+ * Community based
+ * fast and scalable
 
 ## Install
 
@@ -66,6 +78,18 @@ and here you are with two folder containing the images and the metadata
         └── 97e2be2e-54f6-11ec-b2e3-645d865124e9.json
     
     2 directories, 20 files
+
+
+Web scraping is so important for data science. Indeed most of the data, either image or text that Ml models are trained on come from the web. (cite crawl dataset). It allows small research teams, startups and people doing personal projects to finetune models on their own scrap data for their own needs. As an example, let's say that I want to create a dog versus cat classifier. It seems a "fairly simple" task, deep learning models, cnn or transformers, are good to perform classification and thanks to pretrain models and transfer learning (cc fastai/Hugging face) you don't have an enormous amount of data to train your models. But you still need some images, at least a couple hundreds of images. Even if such an amount is small from a deep learning perspective, it is still a huge amount for humans. Without web scraping you may have to ask all your friends for a photo of their cats/dogs (and I hope you have enough friends). But with web scraping you can do it within seconds. Amazing.
+
+In the ML field, there are plenty of open source libraries to train and fitune your NN easily, you can even use the SOTA models (HF) out of the box without being a research engineer and implement every paper from scratch. You spawn a GPU instance within minutes without having to configure anything, find hyperparameters automatically etc ...
+But you don't have the tools to create a dataset easily. And you can use the last and biggest transformers based vision models if you don't have enough quality data you won't get anything. Of course you can use one of the thousands of dataset from hugging face ! But you have to wait for someone to prepare the right dataset for your case. What if you could do it yourself with some web scraping without being a selenium or javascript expert ?
+That's the first goal of Web2dataset (the name is still definitive yet open to suggestion), create a dataset in minutes for your needs.
+
+Web2dataset is thought to be modulable, add every kind of image source you want as a Searcher, add any kind of Cleaner, i.e way of deleting bad samples from your dataset.
+
+Web2datast has a second, maybe even more important, goal : clean your dataset and include ethic way of creating a dataset. Indeed, let's be honest, internet is sometime full of crap. You won't let your child only from scrolling on internet would you ? Well it should be the same with yours models. How to scrap only "good" and "ethic" data ? That's an open question, with a lot of researchers working on it (cc Tournesol). Web2datase is built from its core around this idea of scraping "ethics" data and it will (someday) incorporate state of the art cleaning technique to keep a dataset ethic and safe.
+
 
 
 ## How to contribute
