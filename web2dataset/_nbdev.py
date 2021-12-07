@@ -21,6 +21,7 @@ index = {"MetaDataCleanerError": "cleaner.ipynb",
          "GoogleImageSearcher": "searcher.ipynb",
          "file_to_doc": "utils_data.ipynb",
          "get_metadata_path": "utils_data.ipynb",
+         "get_images_path": "utils_data.ipynb",
          "load_docs": "utils_data.ipynb"}
 
 modules = ["cleaner.py",

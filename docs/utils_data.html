@@ -118,7 +118,48 @@ args:
 </blockquote>
 <p>Function to get the metadata path
 args:
-    path: str. A string containing the path to the folder (where we have save a search for example)</p>
+    path: str. A string containing the path to the folder (where we saved a search)</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>same for the images</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_images_path" class="doc_header"><code>get_images_path</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/utils_data.py#L36" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_images_path</code>(<strong><code>path</code></strong>:<code>str</code>)</p>
+</blockquote>
+<p>Function to get the metadata path
+args:
+    path: str. A string containing the path to the folder (where we saved a search)</p>
 
 </div>
 
@@ -231,7 +272,7 @@ args:
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#34;date&#34;: &#34;2021-12-04T12:35:18.136763+01:00&#34;, &#34;image_url&#34;: &#34;https://raw.githubusercontent.com/fastai/fastai/master/nbs/images/puppy.jpg&#34;, &#34;origin&#34;: &#34;https://www.google.fr&#34;, &#34;uuid&#34;: &#34;41a07e3e-54f6-11ec-b278-645d865124e9&#34;}</pre>
+<pre>{&#34;date&#34;: &#34;2021-12-07T13:27:42.539788+01:00&#34;, &#34;image_url&#34;: &#34;https://raw.githubusercontent.com/fastai/fastai/master/nbs/images/puppy.jpg&#34;, &#34;origin&#34;: &#34;https://www.google.fr&#34;, &#34;uuid&#34;: &#34;131390fa-5759-11ec-9baa-645d865124e9&#34;}</pre>
 </div>
 
 </div>
@@ -277,11 +318,11 @@ args:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="load_docs" class="doc_header"><code>load_docs</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/utils_data.py#L36" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_docs</code>(<strong><code>path</code></strong>:<code>str</code>)</p>
+<h4 id="load_docs" class="doc_header"><code>load_docs</code><a href="https://github.com/samsja/web2dataset/tree/main/web2dataset/utils_data.py#L45" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_docs</code>(<strong><code>path</code></strong>:<code>str</code>)</p>
 </blockquote>
-<p>Function the metadata of a dataset, i.e it load the docs from the metadata folder of the dataset
+<p>Function: Load the metadata of a dataset, i.e it load the docs from the metadata folder of the dataset
 args:
-    path: str. A string containing the path to the folder (where we have save a search for example)</p>
+    path: str. A string containing the path to the folder where we saved save a search for example</p>
 
 </div>
 
@@ -339,15 +380,44 @@ args:
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[{&#34;date&#34;: &#34;2021-12-04T12:35:18.136763+01:00&#34;, &#34;image_url&#34;: &#34;https://raw.githubusercontent.com/fastai/fastai/master/nbs/images/puppy.jpg&#34;, &#34;origin&#34;: &#34;https://www.google.fr&#34;, &#34;uuid&#34;: &#34;41a07e3e-54f6-11ec-b278-645d865124e9&#34;},
- {&#34;date&#34;: &#34;2021-12-04T12:35:18.136726+01:00&#34;, &#34;image_url&#34;: &#34;https://raw.githubusercontent.com/fastai/fastai/master/nbs/images/puppy.jpg&#34;, &#34;origin&#34;: &#34;https://www.google.fr&#34;, &#34;uuid&#34;: &#34;41a07cc2-54f6-11ec-b278-645d865124e9&#34;},
- {&#34;date&#34;: &#34;2021-12-04T12:35:18.136685+01:00&#34;, &#34;image_url&#34;: &#34;https://raw.githubusercontent.com/fastai/fastai/master/nbs/images/puppy.jpg&#34;, &#34;origin&#34;: &#34;https://www.google.fr&#34;, &#34;uuid&#34;: &#34;41a07b3c-54f6-11ec-b278-645d865124e9&#34;},
- {&#34;date&#34;: &#34;2021-12-04T12:35:18.136628+01:00&#34;, &#34;image_url&#34;: &#34;https://raw.githubusercontent.com/fastai/fastai/master/nbs/images/puppy.jpg&#34;, &#34;origin&#34;: &#34;https://www.google.fr&#34;, &#34;uuid&#34;: &#34;41a0795c-54f6-11ec-b278-645d865124e9&#34;},
- {&#34;date&#34;: &#34;2021-12-04T12:35:18.136499+01:00&#34;, &#34;image_url&#34;: &#34;https://raw.githubusercontent.com/fastai/fastai/master/nbs/images/puppy.jpg&#34;, &#34;origin&#34;: &#34;https://www.google.fr&#34;, &#34;uuid&#34;: &#34;41a07628-54f6-11ec-b278-645d865124e9&#34;}]</pre>
+<pre>[{&#34;date&#34;: &#34;2021-12-07T13:27:42.539788+01:00&#34;, &#34;image_url&#34;: &#34;https://raw.githubusercontent.com/fastai/fastai/master/nbs/images/puppy.jpg&#34;, &#34;origin&#34;: &#34;https://www.google.fr&#34;, &#34;uuid&#34;: &#34;131390fa-5759-11ec-9baa-645d865124e9&#34;},
+ {&#34;date&#34;: &#34;2021-12-07T13:27:42.539766+01:00&#34;, &#34;image_url&#34;: &#34;https://raw.githubusercontent.com/fastai/fastai/master/nbs/images/puppy.jpg&#34;, &#34;origin&#34;: &#34;https://www.google.fr&#34;, &#34;uuid&#34;: &#34;13139028-5759-11ec-9baa-645d865124e9&#34;},
+ {&#34;date&#34;: &#34;2021-12-07T13:27:42.539743+01:00&#34;, &#34;image_url&#34;: &#34;https://raw.githubusercontent.com/fastai/fastai/master/nbs/images/puppy.jpg&#34;, &#34;origin&#34;: &#34;https://www.google.fr&#34;, &#34;uuid&#34;: &#34;13138f42-5759-11ec-9baa-645d865124e9&#34;},
+ {&#34;date&#34;: &#34;2021-12-07T13:27:42.539710+01:00&#34;, &#34;image_url&#34;: &#34;https://raw.githubusercontent.com/fastai/fastai/master/nbs/images/puppy.jpg&#34;, &#34;origin&#34;: &#34;https://www.google.fr&#34;, &#34;uuid&#34;: &#34;13138e34-5759-11ec-9baa-645d865124e9&#34;},
+ {&#34;date&#34;: &#34;2021-12-07T13:27:42.539555+01:00&#34;, &#34;image_url&#34;: &#34;https://raw.githubusercontent.com/fastai/fastai/master/nbs/images/puppy.jpg&#34;, &#34;origin&#34;: &#34;https://www.google.fr&#34;, &#34;uuid&#34;: &#34;13138c2c-5759-11ec-9baa-645d865124e9&#34;}]</pre>
 </div>
 
 </div>
 
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">check_integrity_after_download</span><span class="p">(</span><span class="n">path</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function: Check the integrity of a folder after searching and donwloading</span>
+<span class="sd">    args:</span>
+<span class="sd">        path: str. A string containing the path to the folder (where we saved a search and download images)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">docs</span> <span class="o">=</span> <span class="n">load_docs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        
+    <span class="n">images_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">get_images_path</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    
+</pre></div>
+
+    </div>
 </div>
 </div>
 

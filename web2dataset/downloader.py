@@ -13,7 +13,7 @@ import jsons
 from PIL import Image
 
 from .document import Document
-from .utils_data import get_metadata_path,load_docs
+from .utils_data import get_metadata_path,load_docs,get_images_path
 
 # Cell
 class Downloader(ABC):
@@ -23,7 +23,7 @@ class Downloader(ABC):
         self._init_download()
 
     def _init_download(self):
-        self.images_path = f"{self.path}/images"
+        self.images_path = get_images_path(self.path)
 
         if not os.path.isdir(self.images_path):
             os.mkdir(self.images_path)
@@ -64,7 +64,7 @@ class BasicDownloader(Downloader):
             with open(f"{path_to_file}", "wb") as fp:
                 fp.write(data.read())
 
-        except urllib.error as e:
+        except urllib.error.URLError as e:
             print(f"unable to donwload {path_to_file}, following error {e}")
 
     def _move_image_from_json(self, doc: Document):
@@ -73,7 +73,7 @@ class BasicDownloader(Downloader):
             with open(self._path_to_file(doc), "wb") as fp:
                 data = urllib.request.urlopen(doc.image_url)
                 fp.write(data.file.read())
-        except urllib.error as e:
+        except urllib.error.URLError as e:
             print(e)
 
         doc.image_url = None

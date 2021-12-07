@@ -9,6 +9,7 @@ from functools import wraps
 from typing import List
 
 from .document import Document
+from .utils_data import get_metadata_path, load_docs,get_images_path
 
 # Cell
 class MetaDataCleanerError(ValueError):
@@ -50,9 +51,14 @@ class DuplicateCleaner(MetaDataCleaner):
         return list(url_doc.values())
 
 # Cell
-class ImageCleaner:
+class ImageCleaner(ABC):
+    """
+    Abstract class to delete
+    """
+
     def __init__(self, path: str):
         self.path = path
 
+    @abstractmethod
     def clean(self):
         pass
