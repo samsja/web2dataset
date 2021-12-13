@@ -10,7 +10,6 @@ from abc import ABC, abstractmethod
 from typing import List
 
 import jsons
-from PIL import Image
 
 from .document import Document
 from .utils_data import get_metadata_path,load_docs
