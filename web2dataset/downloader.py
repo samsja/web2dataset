@@ -59,7 +59,7 @@ class BasicDownloader(Downloader):
             with open(f"{path_to_file}", "wb") as fp:
                 fp.write(data.read())
 
-        except urllib.error as e:
+        except urllib.error.URLError as e:
             print(f"unable to donwload {path_to_file}, following error {e}")
 
     def _move_image_from_json(self, doc: Document):
@@ -68,7 +68,7 @@ class BasicDownloader(Downloader):
             with open(self._path_to_file(doc), "wb") as fp:
                 data = urllib.request.urlopen(doc.image_url)
                 fp.write(data.file.read())
-        except urllib.error as e:
+        except urllib.error.URLError as e:
             print(e)
 
         doc.image_url = None
