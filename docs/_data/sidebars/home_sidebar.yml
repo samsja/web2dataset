@@ -10,20 +10,11 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
+      title: Downloader
+      url: Downloader.html
+    - output: web,pdf
       title: Cleaner
       url: cleaner.html
-    - output: web,pdf
-      title: Document
-      url: document.html
-    - output: web,pdf
-      title: Downloader
-      url: downloader.html
-    - output: web,pdf
-      title: Searcher
-      url: searcher.html
-    - output: web,pdf
-      title: utils/data
-      url: utils_data.html
     output: web
     title: web2dataset
   output: web
