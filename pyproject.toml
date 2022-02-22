@@ -6,9 +6,10 @@ authors = ["sami jaghouar <sami.jaghouar@hotmail.fr>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-jsons = "^1.6.0"
 selenium = "^4.1.0"
 uuid = "^1.30"
+docarray = "^0.7.1"
+matplotlib = "^3.5.1"
 
 [tool.poetry.dev-dependencies]
 Pillow = "^8.4.0"

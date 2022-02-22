@@ -2,32 +2,20 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"MetaDataCleanerError": "cleaner.ipynb",
+index = {"Downloader": "Downloader.ipynb",
+         "BasicSearcher": "Downloader.ipynb",
+         "DownloaderError": "Downloader.ipynb",
+         "GoogleImageDownloaderError": "Downloader.ipynb",
+         "GoogleImageDownloader": "Downloader.ipynb",
+         "MetaDataCleanerError": "cleaner.ipynb",
          "check_no_docs_creation": "cleaner.ipynb",
          "MetaDataCleaner": "cleaner.ipynb",
          "IdentityCleaner": "cleaner.ipynb",
          "DuplicateCleaner": "cleaner.ipynb",
-         "ImageCleaner": "cleaner.ipynb",
-         "Document": "document.ipynb",
-         "Downloader": "downloader.ipynb",
-         "DonwloaderError": "downloader.ipynb",
-         "BasicDownloader": "downloader.ipynb",
-         "MultiThreadedDownloader": "downloader.ipynb",
-         "Searcher": "searcher.ipynb",
-         "BasicSearcher": "searcher.ipynb",
-         "SearchError": "searcher.ipynb",
-         "GoogleImageSearchError": "searcher.ipynb",
-         "GoogleImageSearcher": "searcher.ipynb",
-         "file_to_doc": "utils_data.ipynb",
-         "get_metadata_path": "utils_data.ipynb",
-         "PathError": "utils_data.ipynb",
-         "load_docs": "utils_data.ipynb"}
+         "ImageCleaner": "cleaner.ipynb"}
 
-modules = ["cleaner.py",
-           "document.py",
-           "downloader.py",
-           "searcher.py",
-           "utils_data.py"]
+modules = ["downloader.py",
+           "cleaner.py"]
 
 doc_url = "https://samsja.github.io/web2dataset/"
 
