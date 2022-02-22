@@ -23,11 +23,23 @@ let's perform a simple research on google image to search for 5 bike images
 
 ```python
 from web2dataset.downloader import GoogleImageDownloader
+from docarray import DocumentArray
 
 downloader = GoogleImageDownloader()
-downloader.download("a red bike",10)
+downloader.download("a red bike",16)
 downloader.save("/tmp/my_search")
+
+with open("/tmp/dataset.bin", "rb") as f:
+    docs = DocumentArray.from_bytes(f.read())
 ```
+
+```python
+downloader.docs.plot_image_sprites()
+```
+
+
+![png](docs/images/output_7_0.png)
+
 
 ## How to contribute
 
