@@ -3,15 +3,10 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"Downloader": "Downloader.ipynb",
-         "BasicSearcher": "Downloader.ipynb",
+         "BasicDownloader": "Downloader.ipynb",
          "DownloaderError": "Downloader.ipynb",
          "GoogleImageDownloaderError": "Downloader.ipynb",
          "GoogleImageDownloader": "Downloader.ipynb",
-         "MetaDataCleanerError": "cleaner.ipynb",
-         "check_no_docs_creation": "cleaner.ipynb",
-         "MetaDataCleaner": "cleaner.ipynb",
-         "IdentityCleaner": "cleaner.ipynb",
-         "DuplicateCleaner": "cleaner.ipynb",
          "ImageCleaner": "cleaner.ipynb"}
 
 modules = ["downloader.py",
