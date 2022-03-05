@@ -13,17 +13,6 @@ from docarray import Document, DocumentArray
 
 # Cell
 class Downloader(ABC):
-    """
-    Base class abstract for any downloader
-
-    Example:
-    ```python
-    >>> from web2dataset import BasicDownloader
-    >>> downloader = BasicDownloader(path="dataset.bin")
-    >>> downloader.download("wallpaper", 2)
-    ```
-    """
-
     _DOCS_FILE_NAME = "dataset.bin"
 
     def __init__(self, path: str):
@@ -121,10 +110,8 @@ class GoogleImageDownloader(ImageDownloader):
     Example:
     ```python
     >>> from web2dataset import GoogleImageDownloader
-    >>> downloader = GoogleImageDownloader()
+    >>> downloader = GoogleImageDownloader(f"tmp/bikedataset")
     >>> downloader.download("red bike", 10)
-    >>> downloader.save("dataset.bin")
-
     ```
     """
 
