@@ -37,22 +37,22 @@ let's load the downloaded image
     [01;34m/tmp/my_search[0m
     ├── [00mdataset.bin[0m
     └── [01;34mimages[0m
-        ├── [01;35m19451006-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m19480e28-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m19492c86-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m194a4f08-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m194b71ee-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m194c8cfa-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m194d9f96-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m194ec9d4-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m194fedf0-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m19511bb2-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m195230d8-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m195357ec-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m19547f82-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m1955950c-9ca1-11ec-9997-645d865124e9.jpg[0m
-        ├── [01;35m1956ad48-9ca1-11ec-9997-645d865124e9.jpg[0m
-        └── [01;35m1957d20e-9ca1-11ec-9997-645d865124e9.jpg[0m
+        ├── [01;35m7bc9a106-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bcbb3ec-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bcce988-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bcdfaee-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bcf16f4-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bd029fe-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bd132c2-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bd23fd2-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bd3401c-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bd453a8-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bd55bcc-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bd67d9a-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bd7b3a4-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bd8dd2e-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        ├── [01;35m7bda1bb2-9ca6-11ec-ad14-645d865124e9.jpg[0m
+        └── [01;35m7bdb4e88-9ca6-11ec-ad14-645d865124e9.jpg[0m
     
     1 directory, 17 files
 
@@ -62,11 +62,18 @@ from docarray import DocumentArray
 
 with open("/tmp/my_search/dataset.bin", "rb") as f:
     docs = DocumentArray.from_bytes(f.read())
+    
 ```
 
 ```python
-docs = docs.apply(lambda d : d.load_uri_to_image_tensor())
+def load_img(d):
+    d.uri = f"/tmp/my_search/{d.uri}"
+    d.load_uri_to_image_tensor()
+    return d
+
+docs = docs.apply(load_img)
 docs.plot_image_sprites()
+
 ```
 
 

@@ -159,11 +159,7 @@ class GoogleImageDownloader(ImageDownloader):
         id_ = str(uuid.uuid1())
 
         self._data_url_to_file(url, id_)
-
-        # doc = Document(origin=query, uri=f"./{self.__class__._IMG_SUB_PATH}/{id_}.jpg", tag={"uuid": id_})
-        doc = Document(
-            origin=query, uri=f"{self.path_image}/{id_}.jpg", tag={"uuid": id_}
-        )  # TODO use relative path
+        doc = Document(origin=query, uri=f"{self.__class__._IMG_SUB_PATH}/{id_}.jpg", tag={"uuid": id_})
 
         return doc
 
