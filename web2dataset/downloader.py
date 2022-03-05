@@ -36,12 +36,16 @@ class Downloader(ABC):
 
         os.makedirs(path, exist_ok=True)
 
-    @abstractmethod
     def download(self, query: str, n_item: int):
         """Scrap internet and download some files
         query: a tag to define the download query
         n_item: the number of file to download
         """
+        self._download(query,n_item)
+        self._save_docs()
+
+    @abstractmethod
+    def _download(self, query: str, n_item: int):
         ...
 
     @property
@@ -124,7 +128,7 @@ class GoogleImageDownloader(ImageDownloader):
     ```
     """
 
-    def download(self, query: str, n_item: int):
+    def _download(self, query: str, n_item: int):
         """Scrap google image and download n_item images from the query
         query: a tag to define the download query. The query should be of the form "red bike" and should not contain "+" as it is use internaly
         n_item: the number of file to download
@@ -141,8 +145,6 @@ class GoogleImageDownloader(ImageDownloader):
 
                 if _continue:
                     self._scroll_to_next_page(driver)
-
-        self._save_docs()
 
     def _create_url_from_query(self, query: str) -> str:
         if "+" in query:
