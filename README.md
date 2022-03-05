@@ -31,6 +31,33 @@ downloader = GoogleImageDownloader("/tmp/my_search").download("a red bike",16)
 let's load the downloaded image
 
 ```python
+!tree "/tmp/my_search"
+```
+
+    [01;34m/tmp/my_search[0m
+    ├── [00mdataset.bin[0m
+    └── [01;34mimages[0m
+        ├── [01;35m0e762066-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e77a206-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e78bbdc-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e79c964-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e7adb92-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e7bec1c-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e7ce8e2-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e7df462-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e7efb32-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e800d42-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e811296-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e82378e-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e834ec6-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e846ae0-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        ├── [01;35m0e857f7a-9ca1-11ec-89eb-645d865124e9.jpg[0m
+        └── [01;35m0e869428-9ca1-11ec-89eb-645d865124e9.jpg[0m
+    
+    1 directory, 17 files
+
+
+```python
 from docarray import DocumentArray
 
 with open("/tmp/my_search/dataset.bin", "rb") as f:
@@ -44,7 +71,7 @@ docs.plot_image_sprites()
 
 
     
-![png](docs/images/output_10_0.png)
+![png](docs/images/output_11_0.png)
     
 
 
