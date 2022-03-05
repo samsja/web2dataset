@@ -4,6 +4,7 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"Downloader": "Downloader.ipynb",
          "DownloaderError": "Downloader.ipynb",
+         "ImageDownloader": "Downloader.ipynb",
          "GoogleImageDownloaderError": "Downloader.ipynb",
          "GoogleImageDownloader": "Downloader.ipynb",
          "ImageCleaner": "cleaner.ipynb"}
