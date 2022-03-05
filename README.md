@@ -23,14 +23,14 @@ let's perform a simple research on google image to search for 5 bike images
 
 Example, how to scrap google image for image of red bike in 2 lines
 
-```python
+```
 from web2dataset.downloader import GoogleImageDownloader
 downloader = GoogleImageDownloader("/tmp/my_search").download("a red bike",16)
 ```
 
 let's load the downloaded image
 
-```python
+```
 !tree "/tmp/my_search"
 ```
 
@@ -57,7 +57,7 @@ let's load the downloaded image
     1 directory, 17 files
 
 
-```python
+```
 from docarray import DocumentArray
 
 with open("/tmp/my_search/dataset.bin", "rb") as f:
@@ -65,7 +65,7 @@ with open("/tmp/my_search/dataset.bin", "rb") as f:
     
 ```
 
-```python
+```
 def load_img(d):
     d.uri = f"/tmp/my_search/{d.uri}"
     d.load_uri_to_image_tensor()

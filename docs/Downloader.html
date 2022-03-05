@@ -76,55 +76,6 @@ nb_path: "nbs/Downloader.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Downloader</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Base class abstract for any downloader</span>
-
-<span class="sd">    Example:</span>
-<span class="sd">    ```python</span>
-<span class="sd">    &gt;&gt;&gt; from web2dataset import BasicDownloader</span>
-<span class="sd">    &gt;&gt;&gt; downloader = BasicDownloader(path=&quot;dataset.bin&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; downloader.download(&quot;wallpaper&quot;, 2)</span>
-<span class="sd">    ```</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">_DOCS_FILE_NAME</span> <span class="o">=</span> <span class="s2">&quot;dataset.bin&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        path: folder in which to save the files</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">docs</span><span class="p">:</span> <span class="n">DocumentArray</span> <span class="o">=</span> <span class="n">DocumentArray</span><span class="p">()</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="k">if</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;/&quot;</span> <span class="k">else</span> <span class="n">path</span>
-
-        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">n_item</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Scrap internet and download some files</span>
-<span class="sd">        query: a tag to define the download query</span>
-<span class="sd">        n_item: the number of file to download</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="o">...</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">path_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_DOCS_FILE_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
-
-    <span class="k">def</span> <span class="nf">_save_docs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Save the metadata&quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_docs</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">docs</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">())</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     {% endraw %}
@@ -401,37 +352,6 @@ this class will be used of testing</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">ImageDownloader</span><span class="p">(</span><span class="n">Downloader</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Specialize abstract downloader for image</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">_IMG_SUB_PATH</span> <span class="o">=</span> <span class="s2">&quot;images&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        path: folder in which to save the files</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path_image</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_data_url_to_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">id_</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path_image</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">id_</span><span class="si">}</span><span class="s2">.jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">path_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_IMG_SUB_PATH</span><span class="si">}</span><span class="s2">&quot;</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     {% endraw %}
