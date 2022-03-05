@@ -21,24 +21,31 @@ pip install git+https://github.com/samsja/web2dataset.git@master
 
 let's perform a simple research on google image to search for 5 bike images
 
+Example, how to scrap google image for image of red bike in 2 lines
+
 ```python
 from web2dataset.downloader import GoogleImageDownloader
+downloader = GoogleImageDownloader("/tmp/my_search").download("a red bike",16)
+```
+
+let's load the downloaded image
+
+```python
 from docarray import DocumentArray
 
-downloader = GoogleImageDownloader()
-downloader.download("a red bike",16)
-downloader.save("/tmp/my_search")
-
-with open("/tmp/dataset.bin", "rb") as f:
+with open("/tmp/my_search/dataset.bin", "rb") as f:
     docs = DocumentArray.from_bytes(f.read())
 ```
 
 ```python
-downloader.docs.plot_image_sprites()
+docs = docs.apply(lambda d : d.load_uri_to_image_tensor())
+docs.plot_image_sprites()
 ```
 
 
-![png](docs/images/output_7_0.png)
+    
+![png](docs/images/output_10_0.png)
+    
 
 
 ## How to contribute
