@@ -16,7 +16,9 @@ from rich.progress import Progress
 class Downloader(ABC):
     _DOCS_FILE_NAME = "dataset.bin"
 
-    def __init__(self, path: str, silence : bool = False, dataset_fn : str = "dataset.bin"):
+    def __init__(
+        self, path: str, silence: bool = False, dataset_fn: str = "dataset.bin"
+    ):
         """
         path: folder in which to save the files
         silence: to silence the logging and the progress bar
@@ -42,11 +44,12 @@ class Downloader(ABC):
             self._save_docs()
 
     @abstractmethod
-    def _download(self, query: str, n_item: int, progress: Progress):
+    def _download(self, query: str, n_item: int, progress: Progress, task_id: int = 0):
         """Internal method wrap around downlaod method
         query: a tag to define the download query
         n_item: the number of file to download
         progress: rich progress bar
+        task_id: the number of the rich task
         """
         ...
 
@@ -128,10 +131,12 @@ class GoogleImageDownloader(ImageDownloader):
     ```
     """
 
-    def _download(self, query: str, n_item: int, progress: Progress):
-        """Scrap google image and download n_item images from the query
-        query: a tag to define the download query. The query should be of the form "red bike" and should not contain "+" as it is use internaly
+    def _download(self, query: str, n_item: int, progress: Progress, task_id: int = 0):
+        """Internal method wrap around downlaod method
+        query: a tag to define the download query
         n_item: the number of file to download
+        progress: rich progress bar
+        task_id: the number of the rich task
         """
         google_image_url = self._create_url_from_query(query)
         with _get_driver() as driver:
@@ -140,7 +145,9 @@ class GoogleImageDownloader(ImageDownloader):
 
             while _continue := len(self.docs) < n_item:
 
-                self._scrap_all_images_in_current_page(driver, query, n_item, progress)
+                self._scrap_all_images_in_current_page(
+                    driver, query, n_item, progress, task_id
+                )
                 _continue = len(self.docs) < n_item
 
                 if _continue:
@@ -153,7 +160,9 @@ class GoogleImageDownloader(ImageDownloader):
             )
         return f"https://www.google.com/search?q={query.replace(' ','+')}&source=lnms&tbm=isch"
 
-    def _element_to_document(self, element, query: str, progress : Progress):
+    def _element_to_document(
+        self, element, query: str, progress: Progress, task_id: int
+    ):
         """
         convert an google image element to a document
         """
@@ -162,12 +171,11 @@ class GoogleImageDownloader(ImageDownloader):
 
         self._data_url_to_file(url, id_)
         doc = Document(
-            origin=query,
             uri=f"{self.__class__._IMG_SUB_PATH}/{id_}.jpg",
-            tag={"uuid": id_},
+            tag={"uuid": id_, "origin": query},
         )
 
-        progress.update(0,advance=1)
+        progress.update(task_id, advance=1)
 
         return doc
 
@@ -175,13 +183,18 @@ class GoogleImageDownloader(ImageDownloader):
         return driver.find_elements(By.CLASS_NAME, "rg_i")
 
     def _scrap_all_images_in_current_page(
-        self, driver: WebDriver, query: str, n_item: int, progress: Progress
+        self,
+        driver: WebDriver,
+        query: str,
+        n_item: int,
+        progress: Progress,
+        task_id: int,
     ):
         elements = self._find_images(driver)
         self.elements = elements
         self.docs.extend(
             [
-                self._element_to_document(e, query,progress)
+                self._element_to_document(e, query, progress,task_id)
                 for i, e in enumerate(elements)
                 if len(self.docs) + i < n_item
             ]
