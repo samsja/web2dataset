@@ -16,9 +16,11 @@ from rich.progress import Progress
 class Downloader(ABC):
     _DOCS_FILE_NAME = "dataset.bin"
 
-    def __init__(self, path: str, silence : bool = False):
+    def __init__(self, path: str, silence : bool = False, dataset_fn : str = "dataset.bin"):
         """
         path: folder in which to save the files
+        silence: to silence the logging and the progress bar
+        dataset_fn: name of the file in which to save the docarray dataset, by default dataset.bin
         """
         self.docs: DocumentArray = DocumentArray()
 
@@ -26,6 +28,7 @@ class Downloader(ABC):
         os.makedirs(path, exist_ok=True)
 
         self.silence = silence
+        self.dataset_fn = dataset_fn
 
     def download(self, query: str, n_item: int):
         """Scrap internet and download some files
@@ -49,7 +52,7 @@ class Downloader(ABC):
 
     @property
     def path_docs(self):
-        return f"{self.path}/{self.__class__._DOCS_FILE_NAME}"
+        return f"{self.path}/{self.dataset_fn}"
 
     def _save_docs(self):
         """Save the metadata"""
