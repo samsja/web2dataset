@@ -25,7 +25,8 @@ Example, how to scrap google image for image of red bike in 2 lines
 
 ```python
 from web2dataset.downloader import GoogleImageDownloader
-downloader = GoogleImageDownloader("/tmp/my_search").download("a red bike",16)
+
+downloader = GoogleImageDownloader("/tmp/my_search").download("a red bike", 16)
 ```
 
 
@@ -48,22 +49,22 @@ let's load the downloaded image
     [01;34m/tmp/my_search[0m
     ├── [00mdataset.bin[0m
     └── [01;34mimages[0m
-        ├── [01;35mc749b298-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc74cace6-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc74dd120-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc74ef73a-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc7503438-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc75181da-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc752c4be-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc753f294-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc7552808-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc7566c22-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc757a132-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc758d796-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc75a13fe-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc75b3fb8-9caf-11ec-a096-645d865124e9.jpg[0m
-        ├── [01;35mc75c7266-9caf-11ec-a096-645d865124e9.jpg[0m
-        └── [01;35mc75d9bf0-9caf-11ec-a096-645d865124e9.jpg[0m
+        ├── [01;35m5708eb0a-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m570c22b6-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m570dd1ec-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m570f39ce-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m57109d00-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m57121edc-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m57136076-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m5714d906-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m57162de2-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m5717ab72-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m5718ea32-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m571a622c-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m571be138-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m571d7002-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        ├── [01;35m571eefb8-9e6e-11ec-8ec7-645d865124e9.jpg[0m
+        └── [01;35m57203c7e-9e6e-11ec-8ec7-645d865124e9.jpg[0m
     
     1 directory, 17 files
 
@@ -73,7 +74,6 @@ from docarray import DocumentArray
 
 with open("/tmp/my_search/dataset.bin", "rb") as f:
     docs = DocumentArray.from_bytes(f.read())
-    
 ```
 
 ```python
@@ -82,14 +82,53 @@ def load_img(d):
     d.load_uri_to_image_tensor()
     return d
 
+
 docs = docs.apply(load_img)
 docs.plot_image_sprites()
-
 ```
 
 
     
 ![png](docs/images/output_11_0.png)
+    
+
+
+And you can parelellize in one additional line
+
+```python
+from web2dataset.downloader import GoogleImageDownloader
+from web2dataset.paralel import ParalelDownload
+
+paralel_downloader = ParalelDownload(
+    "/tmp/my_search", GoogleImageDownloader, num_worker=2
+)
+paralel_downloader.download(["a red bike","a blue bike"], 8)
+```
+
+
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
+
+
+
+
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+</pre>
+
+
+
+```python
+from docarray import DocumentArray
+
+with open("/tmp/my_search/dataset.bin", "rb") as f:
+    docs = DocumentArray.from_bytes(f.read())
+
+docs = docs.apply(load_img)
+docs.plot_image_sprites()
+```
+
+
+    
+![png](docs/images/output_14_0.png)
     
 
 
