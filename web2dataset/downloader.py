@@ -16,12 +16,9 @@ from rich.progress import Progress
 class Downloader(ABC):
     _DOCS_FILE_NAME = "dataset.bin"
 
-    def __init__(
-        self, path: str, silence: bool = False, dataset_fn: str = "dataset.bin"
-    ):
+    def __init__(self, path: str, dataset_fn: str = "dataset.bin"):
         """
         path: folder in which to save the files
-        silence: to silence the logging and the progress bar
         dataset_fn: name of the file in which to save the docarray dataset, by default dataset.bin
         """
         self.docs: DocumentArray = DocumentArray()
@@ -29,15 +26,15 @@ class Downloader(ABC):
         self.path = path[0:-2] if path[-1] == "/" else path
         os.makedirs(path, exist_ok=True)
 
-        self.silence = silence
         self.dataset_fn = dataset_fn
 
-    def download(self, query: str, n_item: int):
+    def download(self, query: str, n_item: int, silence: bool = False):
         """Scrap internet and download some files
         query: a tag to define the download query
         n_item: the number of file to download
+        silence: to silence the logging and the progress bar
         """
-        with Progress(disable=self.silence) as progress:
+        with Progress(disable=silence) as progress:
 
             progress.add_task("Scrapping...", total=n_item)
             self._download(query, n_item, progress)
@@ -194,7 +191,7 @@ class GoogleImageDownloader(ImageDownloader):
         self.elements = elements
         self.docs.extend(
             [
-                self._element_to_document(e, query, progress,task_id)
+                self._element_to_document(e, query, progress, task_id)
                 for i, e in enumerate(elements)
                 if len(self.docs) + i < n_item
             ]

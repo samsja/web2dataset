@@ -20,7 +20,6 @@ class ParalelDownload:
         downloader_cls: type[Downloader],
         num_worker: int,
         dataset_fn: str = "dataset.bin",
-        silence: bool = False,
         *args,
         **kwargs,
     ):
@@ -40,10 +39,14 @@ class ParalelDownload:
         self.downloaders = [
             downloader_cls(path=path, *args, **kwargs) for i in range(num_worker)
         ]
-        self.silence = silence
 
-    def download(self, queries: List[str], n_item: int):
-        with Progress(disable=self.silence) as progress:
+    def download(
+        self,
+        queries: List[str],
+        n_item: int,
+        silence: bool = False,
+    ):
+        with Progress(disable=silence) as progress:
 
             for i, _ in enumerate(self.downloaders):
                 progress.add_task(f"Downloader-{i} Scrapping ...", total=n_item)
