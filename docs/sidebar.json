@@ -2,6 +2,7 @@
   "web2dataset": {
     "Overview": "/",
     "Downloader": "Downloader.html",
-    "Cleaner": "cleaner.html"
+    "Cleaner": "cleaner.html",
+    "Pararel Downloading": "paralel.html"
   }
 }
