@@ -18,6 +18,9 @@ entries:
     - output: web,pdf
       title: Pararel Downloading
       url: paralel.html
+    - output: web,pdf
+      title: Title
+      url: toy.html
     output: web
     title: web2dataset
   output: web

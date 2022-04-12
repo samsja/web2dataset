@@ -5,6 +5,7 @@ __all__ = ['Downloader', 'DownloaderError', 'ImageDownloader', 'GoogleImageDownl
 # Cell
 import os
 import urllib
+import requests
 import uuid
 from abc import ABC, abstractmethod
 from typing import List, Optional
@@ -79,9 +80,17 @@ class ImageDownloader(Downloader):
         os.makedirs(self.path_image, exist_ok=True)
 
     def _data_url_to_file(self, url: str, id_: str):
-        response = urllib.request.urlopen(url)
-        with open(f"{self.path_image}/{id_}.jpg", "wb") as f:
-            f.write(response.file.read())
+
+            with open(f"{self.path_image}/{id_}.jpg", "wb") as f:
+
+                if url.startswith("http"):
+                    img_data = requests.get(url).content
+                else:
+                    response = urllib.request.urlopen(url)
+                    img_data = response.file.read()
+
+                f.write(img_data)
+
 
     @property
     def path_image(self):
@@ -128,6 +137,10 @@ class GoogleImageDownloader(ImageDownloader):
     ```
     """
 
+    def __init__(self, path: str, debug=False, *args, **kwargs):
+        super().__init__(path, *args, **kwargs)
+        self.debug = debug
+
     def _download(self, query: str, n_item: int, progress: Progress, task_id: int = 0):
         """Internal method wrap around downlaod method
         query: a tag to define the download query
@@ -136,18 +149,18 @@ class GoogleImageDownloader(ImageDownloader):
         task_id: the number of the rich task
         """
         google_image_url = self._create_url_from_query(query)
-        with _get_driver() as driver:
+        with _get_driver(self.debug) as driver:
 
             driver.get(google_image_url)
 
-            while _continue := len(self.docs) < n_item:
+            _continue = True
+            while _continue:
 
                 self._scrap_all_images_in_current_page(
                     driver, query, n_item, progress, task_id
                 )
-                _continue = len(self.docs) < n_item
 
-                if _continue:
+                if _continue := len(self.docs) < n_item:
                     self._scroll_to_next_page(driver)
 
     def _create_url_from_query(self, query: str) -> str:
@@ -164,11 +177,16 @@ class GoogleImageDownloader(ImageDownloader):
         convert an google image element to a document
         """
         url = element.get_attribute("src")
+
+        if url is None:
+            return None
+
         id_ = str(uuid.uuid1())
 
         self._data_url_to_file(url, id_)
+
         doc = Document(
-            uri=f"{self.__class__._IMG_SUB_PATH}/{id_}.jpg",
+            uri=f"{self._IMG_SUB_PATH}/{id_}.jpg",
             tag={"uuid": id_, "origin": query},
         )
 
@@ -189,12 +207,16 @@ class GoogleImageDownloader(ImageDownloader):
     ):
         elements = self._find_images(driver)
         self.elements = elements
+
         self.docs.extend(
-            [
-                self._element_to_document(e, query, progress, task_id)
-                for i, e in enumerate(elements)
-                if len(self.docs) + i < n_item
-            ]
+            filter(
+                None,
+                [
+                    self._element_to_document(e, query, progress, task_id)
+                    for i, e in enumerate(elements)
+                    if len(self.docs) + i < n_item
+                ],
+            )
         )
 
     def _scroll_to_next_page(self, driver: WebDriver):
