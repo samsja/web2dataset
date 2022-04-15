@@ -31,7 +31,7 @@ Example, how to scrap google image for image of red bike in 2 lines
 from command line:
 
 ```bash
-web2dataset.cli 16 'a red bike' '' /tmp/my_search 1
+web2dataset scrap 16 'a red bike' /tmp/my_search 
 ```
 
 or from python:
@@ -145,7 +145,7 @@ paralel_downloader.download(["a red bike","a blue bike"], 8)
 or from command line:
 
 ```bash
-web2dataset.cli 8 'a red bike' 'a blue bike' /tmp/my_search 2
+web2dataset parallel 8 'a red bike' 'a blue bike' /tmp/my_search 2
 ```
 
 ```python
