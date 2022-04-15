@@ -10,12 +10,14 @@ index = {"Downloader": "Downloader.ipynb",
          "ImageCleaner": "cleaner.ipynb",
          "scrap": "cli.ipynb",
          "cli": "cli.ipynb",
-         "ParalelDownload": "paralel.ipynb"}
+         "ParalelDownload": "paralel.ipynb",
+         "TorchDataset": "torch_dataset.ipynb"}
 
 modules = ["downloader.py",
            "cleaner.py",
            "cli.py",
-           "paralel.py"]
+           "paralel.py",
+           "torch_dataset.py"]
 
 doc_url = "https://samsja.github.io/web2dataset/"
 

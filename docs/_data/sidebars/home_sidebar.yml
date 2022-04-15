@@ -22,6 +22,9 @@ entries:
       title: Pararel Downloading
       url: paralel.html
     - output: web,pdf
+      title: Torch dataset
+      url: torch_dataset.html
+    - output: web,pdf
       title: Title
       url: toy.html
     output: web
