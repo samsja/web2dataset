@@ -8,10 +8,13 @@ index = {"Downloader": "Downloader.ipynb",
          "GoogleImageDownloaderError": "Downloader.ipynb",
          "GoogleImageDownloader": "Downloader.ipynb",
          "ImageCleaner": "cleaner.ipynb",
+         "scrap": "cli.ipynb",
+         "cli": "cli.ipynb",
          "ParalelDownload": "paralel.ipynb"}
 
 modules = ["downloader.py",
            "cleaner.py",
+           "cli.py",
            "paralel.py"]
 
 doc_url = "https://samsja.github.io/web2dataset/"

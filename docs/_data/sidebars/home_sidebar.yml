@@ -16,6 +16,9 @@ entries:
       title: Cleaner
       url: cleaner.html
     - output: web,pdf
+      title: CLI
+      url: cli.html
+    - output: web,pdf
       title: Pararel Downloading
       url: paralel.html
     - output: web,pdf

@@ -18,7 +18,7 @@ class ParalelDownload:
         self,
         path: str,
         downloader_cls: type[Downloader],
-        num_worker: int,
+        num_workers: int,
         dataset_fn: str = "dataset.bin",
         *args,
         **kwargs,
@@ -26,7 +26,7 @@ class ParalelDownload:
         """Parallelize donwloading
         path: folder in which to save the files
         downloader_cls: the class of Downloader you want to parellize
-        num_worker: the number of worker to use.
+        num_workers: the number of worker to use.
         dataset_fn: name of the file in which to save the docarray dataset, by default dataset.bin
         silence: to silence the logging and the progress bar
         *args: args to pass to the downloader
@@ -35,9 +35,9 @@ class ParalelDownload:
 
         self.path = path
         self.dataset_fn = dataset_fn
-        self.num_worker = num_worker
+        self.num_workers = num_workers
         self.downloaders = [
-            downloader_cls(path=path, *args, **kwargs) for i in range(num_worker)
+            downloader_cls(path=path, *args, **kwargs) for i in range(num_workers)
         ]
 
     def download(

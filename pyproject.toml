@@ -11,6 +11,7 @@ uuid = "^1.30"
 docarray = "^0.12"
 matplotlib = "^3.5.1"
 rich = "^12.0"
+typer = "^0.4.1"
 
 [tool.poetry.dev-dependencies]
 Pillow = "^8.4.0"
@@ -20,6 +21,9 @@ black = "^21.8b0"
 isort = "^5.9.3"
 jupyterlab = "^3.3"
 jupyter-client = "7.2"
+
+[tool.poetry.scripts]
+web2dataset = "web2dataset.cli:cli"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
