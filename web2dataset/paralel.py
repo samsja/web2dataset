@@ -49,7 +49,7 @@ class ParalelDownload:
         with Progress(disable=silence) as progress:
 
             for i, _ in enumerate(self.downloaders):
-                progress.add_task(f"Downloader-{i} Scrapping ...", total=n_item)
+                progress.add_task(f"Scrapping {queries[i]} ...", total=n_item)
 
             def task(downloader, task_id):
                 while query := queries.pop() if queries else False:

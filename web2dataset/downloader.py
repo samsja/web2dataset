@@ -5,13 +5,19 @@ __all__ = ['Downloader', 'DownloaderError', 'ImageDownloader', 'GoogleImageDownl
 # Cell
 import os
 import urllib
-import requests
 import uuid
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
+import requests
 from docarray import Document, DocumentArray
-from rich.progress import Progress
+from rich.progress import (
+    BarColumn,
+    MofNCompleteColumn,
+    Progress,
+    TextColumn,
+    TimeRemainingColumn,
+)
 
 # Cell
 class Downloader(ABC):
@@ -35,9 +41,9 @@ class Downloader(ABC):
         n_item: the number of file to download
         silence: to silence the logging and the progress bar
         """
-        with Progress(disable=silence) as progress:
+        with Progress(*self._get_default_column(), disable=silence) as progress:
 
-            progress.add_task("Scrapping...", total=n_item)
+            progress.add_task(f"Scrapping {query} ...", total=n_item)
             self._download(query, n_item, progress)
             self._save_docs()
 
@@ -60,6 +66,16 @@ class Downloader(ABC):
         with open(self.path_docs, "wb") as f:
             f.write(self.docs.to_bytes())
 
+    @staticmethod
+    def _get_default_column():
+        return (
+            TextColumn("[progress.description]{task.description}"),
+            BarColumn(),
+            MofNCompleteColumn(),
+            TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+            TimeRemainingColumn(),
+        )
+
 # Cell
 class DownloaderError(ValueError):
     pass
@@ -81,16 +97,15 @@ class ImageDownloader(Downloader):
 
     def _data_url_to_file(self, url: str, id_: str):
 
-            with open(f"{self.path_image}/{id_}.jpg", "wb") as f:
+        with open(f"{self.path_image}/{id_}.jpg", "wb") as f:
 
-                if url.startswith("http"):
-                    img_data = requests.get(url).content
-                else:
-                    response = urllib.request.urlopen(url)
-                    img_data = response.file.read()
+            if url.startswith("http"):
+                img_data = requests.get(url).content
+            else:
+                response = urllib.request.urlopen(url)
+                img_data = response.file.read()
 
-                f.write(img_data)
-
+            f.write(img_data)
 
     @property
     def path_image(self):
