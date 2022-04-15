@@ -6,8 +6,10 @@ __all__ = ['ParalelDownload']
 import time
 from threading import Thread
 from typing import List
-
 from docarray import Document, DocumentArray
+from docarray.array.memory import DocumentArrayInMemory # hack to fix the cyclic issue
+
+from multiprocessing.pool import ThreadPool
 from rich.progress import Progress
 
 from .downloader import Downloader
@@ -29,16 +31,17 @@ class ParalelDownload:
         num_workers: the number of worker to use.
         dataset_fn: name of the file in which to save the docarray dataset, by default dataset.bin
         silence: to silence the logging and the progress bar
-        *args: args to pass to the downloader
-        *kwargs: kwargs to pass to the downloader
+        *args: args to pass to the downloader init function
+        *kwargs: kwargs to pass to the downloader init function
         """
 
         self.path = path
         self.dataset_fn = dataset_fn
         self.num_workers = num_workers
-        self.downloaders = [
-            downloader_cls(path=path, *args, **kwargs) for i in range(num_workers)
-        ]
+        self.downloader_cls = downloader_cls
+        self._get_downloader = lambda : downloader_cls(path=path, *args, **kwargs)
+
+
 
     def download(
         self,
@@ -46,33 +49,25 @@ class ParalelDownload:
         n_item: int,
         silence: bool = False,
     ):
-        with Progress(disable=silence) as progress:
+        with Progress(*self.downloader_cls.get_default_column(),disable=silence) as progress:
 
-            for i, _ in enumerate(self.downloaders):
-                progress.add_task(f"Scrapping {queries[i]} ...", total=n_item)
+            queries = [(task_id, query) for task_id, query in enumerate(queries)]
+            for _, query in queries:
+                progress.add_task(f"Scrapping {query} ...", total=n_item)
 
-            def task(downloader, task_id):
-                while query := queries.pop() if queries else False:
+            downloader_list= []
+            with ThreadPool(processes  = self.num_workers) as pool:
+
+                def task(t_query):
+                    (task_id, query) = t_query
+                    downloader = self._get_downloader()
+                    downloader_list.append(downloader)
                     downloader._download(query, n_item, progress, task_id)
 
-            threads = []
-            for task_id, downloader in enumerate(self.downloaders):
-                threads.append(
-                    Thread(
-                        target=task,
-                        args=(
-                            downloader,
-                            task_id,
-                        ),
-                    )
-                )
-                threads[-1].start()
-
-            for t in threads:
-                t.join()
+                pool.map(task, queries)
 
             with open(f"{self.path}/{self.dataset_fn}", "wb") as f:
                 self.docs = DocumentArray().empty()
-                for d in self.downloaders:
+                for d in downloader_list:
                     self.docs.extend(d.docs)
                 f.write(self.docs.to_bytes())

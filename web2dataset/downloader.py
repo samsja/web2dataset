@@ -41,7 +41,7 @@ class Downloader(ABC):
         n_item: the number of file to download
         silence: to silence the logging and the progress bar
         """
-        with Progress(*self._get_default_column(), disable=silence) as progress:
+        with Progress(*self.get_default_column(), disable=silence) as progress:
 
             progress.add_task(f"Scrapping {query} ...", total=n_item)
             self._download(query, n_item, progress)
@@ -67,7 +67,7 @@ class Downloader(ABC):
             f.write(self.docs.to_bytes())
 
     @staticmethod
-    def _get_default_column():
+    def get_default_column():
         return (
             TextColumn("[progress.description]{task.description}"),
             BarColumn(),
